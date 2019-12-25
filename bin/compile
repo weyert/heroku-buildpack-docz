@@ -1,14 +1,25 @@
 #!/bin/sh
 
+# Fail immediately on non-zero exit code.
+set -e
+# Fail on undeclared variables.
+set -u
+# Debug, echo every command
+set -x
+
 BUILD_DIR=$1
+CACHE_DIR=$2
+ENV_DIR=$3
 
 cd $BUILD_DIR
 
 if [ -f "static.json" ]
 then
-  echo '       Overwriting existing `static.json`'
+  echo '-----> Override existing `static.json` file'
 fi
 
-echo '{ "root": "other/public/docs/" }' > static.json
+echo '{ "root": "other/public/docs",  "clean_urls": true, "routes": { "/**": "index.html" } }' > static.json
 
-yarn docs:build
+echo '-----> Start Docz build'
+yarn run docs:build
+echo '-----> Finish Docz build'
