@@ -1,8 +1,9 @@
 #!/bin/sh
 
-if [ -d $1/.docz ]; then
-  echo "docz"
+if [ -d $1/doczrc.js ]; then
+  echo "-----> Docz detected"
   exit 0
 else
+  echo "-----> No Docz detected"
   exit 1
 fi
